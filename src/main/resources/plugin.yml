@@ -1,0 +1,16 @@
+name: PerfectFlight
+version: 0.0.0
+main: me.stefan923.perfectflight.PerfectFlight
+description: Adds a fully customizable flight system to Minecraft.
+softdepend: [Factions]
+authors: [Stefan923]
+
+commands:
+  perfectflight:
+    description: Infos about this plugin.
+    aliases: [perfectfly, pfly, pflight]
+
+permissions:
+  perfectflight.admin:
+    description: Acces to powerfull commands, like reload, configuration commands.
+    default: op
