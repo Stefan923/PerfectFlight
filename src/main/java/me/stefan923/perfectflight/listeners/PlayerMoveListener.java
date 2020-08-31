@@ -18,7 +18,7 @@ public class PlayerMoveListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         if (instance.getSettingsManager().getConfig().getBoolean("Hooks.Factions.Auto-Fly.Enable")) {
             User user = instance.getUser(event.getPlayer());
-            user.checkFactionsFly();
+            user.checkFly();
         }
     }
 

@@ -1,6 +1,9 @@
 package me.stefan923.perfectflight;
 
 import me.stefan923.perfectflight.commands.CommandManager;
+import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
+import me.stefan923.perfectflight.hooks.checkers.FactionsChecker;
+import me.stefan923.perfectflight.hooks.checkers.SaberFactionsChecker;
 import me.stefan923.perfectflight.language.LanguageManager;
 import me.stefan923.perfectflight.listeners.PlayerJoinListener;
 import me.stefan923.perfectflight.listeners.PlayerMoveListener;
@@ -12,7 +15,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PerfectFlight extends JavaPlugin implements MessageUtils {
     private static PerfectFlight instance;
@@ -20,6 +25,7 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     private SettingsManager settingsManager;
     private LanguageManager languageManager;
 
+    private List<AbstractChecker> checkers;
     private HashMap<Player, User> users;
 
     @Override
@@ -32,6 +38,7 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         languageManager = LanguageManager.getInstance();
         languageManager.setup(this);
 
+        checkers = new ArrayList<>();
         users = new HashMap<>();
 
         sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
@@ -40,6 +47,8 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         sendLogger("&b   Enabled listeners: &3" + enableListeners());
         sendLogger("&b   Enabled commands: &3" + enableCommands());
         sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
+
+        loadCheckers();
     }
 
     private Integer enableListeners() {
@@ -54,6 +63,16 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     private Integer enableCommands() {
         CommandManager commandManager = new CommandManager(this);
         return commandManager.getCommands().size();
+    }
+
+    private void loadCheckers() {
+        try {
+            Class.forName("com.massivecraft.factions.perms.Relation");
+        } catch (ClassNotFoundException e) {
+            checkers.add(new SaberFactionsChecker());
+        } finally {
+            checkers.add(new FactionsChecker());
+        }
     }
 
     public static PerfectFlight getInstance() {
@@ -76,6 +95,10 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         languageManager.reload();
     }
 
+    public List<AbstractChecker> getCheckers() {
+        return checkers;
+    }
+
     public HashMap<Player, User> getUsers() {
         return users;
     }
@@ -91,5 +114,4 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     public void onDisable() {
         super.onDisable();
     }
-
 }

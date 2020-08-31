@@ -1,18 +1,17 @@
 package me.stefan923.perfectflight.utils;
 
-import com.massivecraft.factions.*;
-import com.massivecraft.factions.perms.Relation;
 import me.stefan923.perfectflight.PerfectFlight;
+import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
 import org.bukkit.entity.Player;
 
 public class User {
 
+    private final PerfectFlight instance;
     private final Player player;
-    private final FPlayer fplayer;
 
     public User(PerfectFlight instance, Player player) {
+        this.instance = instance;
         this.player = player;
-        this.fplayer = FPlayers.getInstance().getByPlayer(player);
 
         instance.getUsers().put(player, this);
     }
@@ -22,68 +21,21 @@ public class User {
         player.setFlying(fly);
     }
 
-    public void checkFactionsFly() {
-        Faction faction = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
-
-        if (canFlyOnTerritory(faction)) {
-            if (player.isFlying()) {
+    public void checkFly() {
+        for (AbstractChecker checker : instance.getCheckers()) {
+            if (!checker.canFlyAtLocation(player)) {
+                if (player.isFlying()) {
+                    setFlight(false);
+                }
                 return;
             }
-
-            setFlight(true);
         }
 
         if (player.isFlying()) {
-            setFlight(false);
-        }
-    }
-
-    public boolean canFlyOnTerritory(Faction faction) {
-        if (fplayer.isAdminBypassing()) {
-            return true;
+            return;
         }
 
-        if (faction == fplayer.getFaction()) {
-            return canFlyOwn();
-        }
-
-        Relation relation = faction.getRelationTo(fplayer);
-        return (faction.isWilderness() && canFlyWilderness()) || (faction.isWarZone() && canFlyWarZone())
-                || (faction.isSafeZone() && canFlySafeZone()) || (relation == Relation.ENEMY && canFlyEnemy())
-                || (relation == Relation.ALLY && canFlyAlly()) || (relation == Relation.TRUCE && canFlyTruce())
-                || (relation == Relation.NEUTRAL && canFlyNeutral());
-    }
-
-    private boolean canFlyWilderness() {
-        return player.hasPermission("perfectflight.factions.wilderness");
-    }
-
-    private boolean canFlySafeZone() {
-        return player.hasPermission("perfectflight.factions.safezone");
-    }
-
-    private boolean canFlyWarZone() {
-        return player.hasPermission("perfectflight.factions.warzone");
-    }
-
-    private boolean canFlyAlly() {
-        return player.hasPermission("perfectflight.factions.ally");
-    }
-
-    private boolean canFlyTruce() {
-        return player.hasPermission("perfectflight.factions.truce");
-    }
-
-    private boolean canFlyNeutral() {
-        return player.hasPermission("perfectflight.factions.neutral");
-    }
-
-    private boolean canFlyEnemy() {
-        return player.hasPermission("perfectflight.factions.enemy");
-    }
-
-    private boolean canFlyOwn() {
-        return player.hasPermission("perfectflight.factions.own");
+        setFlight(true);
     }
 
 }
