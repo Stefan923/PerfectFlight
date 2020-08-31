@@ -1,6 +1,7 @@
 package me.stefan923.perfectflight.commands;
 
 import me.stefan923.perfectflight.PerfectFlight;
+import me.stefan923.perfectflight.commands.type.CommandFly;
 import me.stefan923.perfectflight.commands.type.CommandPerfectFlight;
 import me.stefan923.perfectflight.commands.type.CommandReload;
 import me.stefan923.perfectflight.exceptions.MissingPermissionException;
@@ -24,10 +25,16 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         this.instance = instance;
         TabManager tabManager = new TabManager(this);
 
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
+
         instance.getCommand("perfectflight").setExecutor(this);
         AbstractCommand commandPerfectFlight = addCommand(new CommandPerfectFlight());
-
         addCommand(new CommandReload(commandPerfectFlight));
+
+        if (settings.getBoolean("Enabled Commands.Fly")) {
+            instance.getCommand("fly").setExecutor(this);
+            addCommand(new CommandFly());
+        }
 
         for (AbstractCommand abstractCommand : commands) {
             if (abstractCommand.getParent() != null) continue;

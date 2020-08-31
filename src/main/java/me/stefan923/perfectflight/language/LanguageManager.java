@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LanguageManager {
-    private static LanguageManager instance = new LanguageManager();
+    private static final LanguageManager instance = new LanguageManager();
     private FileConfiguration config;
     private File cfile;
 
@@ -23,6 +23,9 @@ public class LanguageManager {
         config = YamlConfiguration.loadConfiguration(cfile);
 
         config.options().header("PerfectFlight by Stefan923\n");
+        config.addDefault("Command.Fly.Can Not Fly", "&8(&3!&8) &cYou &4can't &cenable your flight mode here!");
+        config.addDefault("Auto Flight Mode.Enabled", "&8(&3!&8) &fYour flight mode has been &aenabled&f!");
+        config.addDefault("Auto Flight Mode.Disabled", "&8(&3!&8) &fYour flight mode has been &cdisabled&f!");
         config.addDefault("General.Must Be Player", "&8(&3!&8) &cYou must be a player to do this!");
         config.addDefault("General.Invalid Command Syntax", "&8(&3!&8) &cInvalid Syntax or you have no permission!\n&8(&3!&8) &fThe valid syntax is: &b%syntax%");
         config.addDefault("General.No Permission", "&8(&3!&8) &cYou need the &4%permission% &cpermission to do that!");

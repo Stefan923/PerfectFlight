@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class SettingsManager {
 
-    private static SettingsManager instance = new SettingsManager();
+    private static final SettingsManager instance = new SettingsManager();
     private FileConfiguration config;
     private File cfile;
 
@@ -24,6 +24,7 @@ public class SettingsManager {
         config = YamlConfiguration.loadConfiguration(cfile);
 
         config.options().header("PerfectFlight by Stefan923\n");
+        config.addDefault("Enabled Commands.Fly", true);
         config.addDefault("Hooks.Factions.Auto-Fly.Enable", false);
         config.options().copyDefaults(true);
         save();

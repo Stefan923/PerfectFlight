@@ -2,9 +2,10 @@ package me.stefan923.perfectflight.utils;
 
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-public class User {
+public class User implements MessageUtils {
 
     private final PerfectFlight instance;
     private final Player player;
@@ -17,25 +18,39 @@ public class User {
     }
 
     public void setFlight(boolean fly) {
+        FileConfiguration language = instance.getLanguageManager().getConfig();
+
         player.setAllowFlight(fly);
         player.setFlying(fly);
-    }
 
-    public void checkFly() {
-        for (AbstractChecker checker : instance.getCheckers()) {
-            if (!checker.canFlyAtLocation(player)) {
-                if (player.isFlying()) {
-                    setFlight(false);
-                }
-                return;
-            }
-        }
-
-        if (player.isFlying()) {
+        if (fly) {
+            player.sendMessage(formatAll(language.getString("Auto Flight Mode.Enabled")));
             return;
         }
 
-        setFlight(true);
+        player.sendMessage(formatAll(language.getString("Auto Flight Mode.Disabled")));
+    }
+
+    public void checkFly() {
+        if (canFly()) {
+            if (!player.getAllowFlight()) {
+                setFlight(true);
+            }
+            return;
+        }
+
+        if (player.getAllowFlight()) {
+            setFlight(false);
+        }
+    }
+
+    public boolean canFly() {
+        for (AbstractChecker checker : instance.getCheckers()) {
+            if (!checker.canFlyAtLocation(player)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

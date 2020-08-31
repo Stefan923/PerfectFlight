@@ -9,8 +9,14 @@ commands:
   perfectflight:
     description: Infos about this plugin.
     aliases: [perfectfly, pfly, pflight]
+  fly:
+    description: Enable/Disable own flight mode.
+    aliases: []
 
 permissions:
   perfectflight.admin:
-    description: Acces to powerfull commands, like reload, configuration commands.
+    description: Access to powerfull commands, like reload, configuration commands.
+    default: op
+  perfectflight.fly:
+    description: Access to use /fly command.
     default: op
