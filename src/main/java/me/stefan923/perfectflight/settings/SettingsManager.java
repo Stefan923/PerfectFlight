@@ -25,7 +25,9 @@ public class SettingsManager {
 
         config.options().header("PerfectFlight by Stefan923\n");
         config.addDefault("Enabled Commands.Fly", true);
-        config.addDefault("Hooks.Factions.Auto-Fly.Enable", false);
+        config.addDefault("Hooks.Factions.Auto-Enable", false);
+        config.addDefault("Hooks.Factions.Auto-Disable Near Enemies.Enabled", false);
+        config.addDefault("Hooks.Factions.Auto-Disable Near Enemies.Check Radius", 32);
         config.options().copyDefaults(true);
         save();
     }

@@ -69,7 +69,7 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         try {
             Class.forName("com.massivecraft.factions.perms.Relation");
         } catch (ClassNotFoundException e) {
-            checkers.add(new SaberFactionsChecker());
+            checkers.add(new SaberFactionsChecker(this));
         } finally {
             checkers.add(new FactionsChecker());
         }
