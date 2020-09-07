@@ -1,5 +1,5 @@
 name: PerfectFlight
-version: 0.0.2
+version: 0.0.3
 main: me.stefan923.perfectflight.PerfectFlight
 description: Adds a fully customizable flight system to Minecraft.
 softdepend: [Factions]
@@ -20,3 +20,24 @@ permissions:
   perfectflight.fly:
     description: Access to use /fly command.
     default: op
+  perfectflight.factions.safezone:
+    description: Access to fly in SafeZone territories.
+    default: false
+  perfectflight.factions.warzone:
+    description: Access to fly in WarZone territories.
+    default: false
+  perfectflight.factions.ally:
+    description: Access to fly in Ally territories.
+    default: false
+  perfectflight.factions.truce:
+    description: Access to fly in Truce territories.
+    default: false
+  perfectflight.factions.neutral:
+    description: Access to fly in Neutral territories.
+    default: false
+  perfectflight.factions.enemy:
+    description: Access to fly in Enemy territories.
+    default: false
+  perfectflight.factions.own:
+    description: Access to fly in own territories.
+    default: false
