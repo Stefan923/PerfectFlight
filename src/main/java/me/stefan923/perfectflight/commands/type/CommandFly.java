@@ -31,13 +31,17 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
         }
 
         if (!user.getFly()) {
-            user.checkFly();
             user.setFly(true);
 
-            return ReturnType.SUCCESS;
+            if (user.canFly()) {
+                user.setFlight(true);
+
+                return ReturnType.SUCCESS;
+            }
+
+            player.sendMessage(formatAll(language.getString("Command.Fly.Can Not Fly")));
         }
 
-        player.sendMessage(formatAll(language.getString("Command.Fly.Can Not Fly")));
         return ReturnType.SUCCESS;
     }
 
