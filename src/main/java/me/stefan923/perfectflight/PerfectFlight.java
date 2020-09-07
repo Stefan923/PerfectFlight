@@ -8,6 +8,7 @@ import me.stefan923.perfectflight.language.LanguageManager;
 import me.stefan923.perfectflight.listeners.PlayerJoinListener;
 import me.stefan923.perfectflight.listeners.PlayerMoveListener;
 import me.stefan923.perfectflight.listeners.PlayerQuitListener;
+import me.stefan923.perfectflight.listeners.PlayerTeleportListener;
 import me.stefan923.perfectflight.settings.SettingsManager;
 import me.stefan923.perfectflight.utils.MessageUtils;
 import me.stefan923.perfectflight.utils.User;
@@ -52,11 +53,12 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     }
 
     private Integer enableListeners() {
-        Integer i = 3;
+        Integer i = 4;
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerMoveListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
+        pluginManager.registerEvents(new PlayerTeleportListener(this), this);
         return i;
     }
 
