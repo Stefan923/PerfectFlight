@@ -11,11 +11,13 @@ public class User implements MessageUtils {
     private final Player player;
 
     private boolean enableFly;
+    private long noFallDamageDuration;
 
     public User(PerfectFlight instance, Player player) {
         this.instance = instance;
         this.player = player;
         this.enableFly = true;
+        this.noFallDamageDuration = 0;
 
         instance.getUsers().put(player, this);
     }
@@ -28,8 +30,13 @@ public class User implements MessageUtils {
         return enableFly;
     }
 
+    public long getNoFallDamageDuration() {
+        return noFallDamageDuration;
+    }
+
     public void setFlight(boolean fly) {
         FileConfiguration language = instance.getLanguageManager().getConfig();
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         player.setAllowFlight(fly);
         player.setFlying(fly);
@@ -40,6 +47,13 @@ public class User implements MessageUtils {
         }
 
         player.sendMessage(formatAll(language.getString("Auto Flight Mode.Disabled")));
+
+        if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
+            int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
+            noFallDamageDuration = System.currentTimeMillis() + duration * 1000;
+            player.sendMessage(formatAll(language.getString("Auto Flight Mode.No Fall Damage")
+                    .replace("%duration%", convertTime(duration, language))));
+        }
     }
 
     public void checkFly() {

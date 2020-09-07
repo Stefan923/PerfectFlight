@@ -3,6 +3,7 @@ package me.stefan923.perfectflight.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public interface MessageUtils {
 
@@ -69,6 +70,13 @@ public interface MessageUtils {
             compensated += spaceLength;
         }
         player.sendMessage(sb.toString() + message);
+    }
+
+    default String convertTime(final int time, final FileConfiguration language) {
+        if (time == 1) {
+            return time + " " + formatAll(language.getString("General.Word.Second"));
+        }
+        return time + " " + formatAll(language.getString("General.Word.Seconds"));
     }
 
 }

@@ -24,6 +24,8 @@ public class SettingsManager {
         config = YamlConfiguration.loadConfiguration(cfile);
 
         config.options().header("PerfectFlight by Stefan923\n");
+        config.addDefault("Fly Settings.Disable Fall Damage.Enabled", true);
+        config.addDefault("Fly Settings.Disable Fall Damage.Duration In Seconds", 10);
         config.addDefault("Enabled Commands.Fly", true);
         config.addDefault("Hooks.Factions.Auto-Enable", false);
         config.addDefault("Hooks.Factions.Auto-Disable Near Enemies.Enabled", false);
