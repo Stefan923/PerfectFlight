@@ -18,7 +18,7 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         User user = instance.getUser(event.getPlayer());
 
-        if (instance.getSettingsManager().getConfig().getBoolean("Hooks.Factions.Auto-Fly.Enable")) {
+        if (instance.getSettingsManager().getConfig().getBoolean("Hooks.Factions.Auto-Enable")) {
             user.checkFly();
         }
     }

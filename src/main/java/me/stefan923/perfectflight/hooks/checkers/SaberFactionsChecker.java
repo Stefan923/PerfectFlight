@@ -4,6 +4,7 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Relation;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.utils.PlayerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -23,10 +24,12 @@ public class SaberFactionsChecker extends AbstractChecker implements PlayerUtils
         Faction faction = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
 
         if (fplayer.isAdminBypassing()) {
+            Bukkit.broadcastMessage(player.getName() + " 1");
             return true;
         }
 
-        if (settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled") && checkNearbyPlayers(player, fplayer)) {
+        // Checks if player can fly near nearby players.
+        if (settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled") && !checkNearbyPlayers(player, fplayer)) {
             return false;
         }
 
@@ -47,7 +50,9 @@ public class SaberFactionsChecker extends AbstractChecker implements PlayerUtils
         FPlayers fpInstance = FPlayers.getInstance();
         for (Player nearbyPlayer : getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"))) {
             if (fplayer.getRelationTo(fpInstance.getByPlayer(nearbyPlayer)) == Relation.ENEMY) {
-                instance.getUser(nearbyPlayer).setFlight(false);
+                if (nearbyPlayer.getAllowFlight()) {
+                    instance.getUser(nearbyPlayer).setFlight(false);
+                }
                 canFly = false;
             }
         }
