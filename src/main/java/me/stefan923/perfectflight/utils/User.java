@@ -10,11 +10,22 @@ public class User implements MessageUtils {
     private final PerfectFlight instance;
     private final Player player;
 
+    private boolean enableFly;
+
     public User(PerfectFlight instance, Player player) {
         this.instance = instance;
         this.player = player;
+        this.enableFly = true;
 
         instance.getUsers().put(player, this);
+    }
+
+    public void setFly(boolean enableFly) {
+        this.enableFly = enableFly;
+    }
+
+    public boolean getFly() {
+        return enableFly;
     }
 
     public void setFlight(boolean fly) {
@@ -32,6 +43,10 @@ public class User implements MessageUtils {
     }
 
     public void checkFly() {
+        if (!enableFly) {
+            return;
+        }
+
         if (canFly()) {
             if (!player.getAllowFlight()) {
                 setFlight(true);

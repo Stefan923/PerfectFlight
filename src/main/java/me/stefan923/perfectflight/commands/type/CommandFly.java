@@ -23,14 +23,16 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
 
         FileConfiguration language = instance.getLanguageManager().getConfig();
 
-        if (player.getAllowFlight()) {
+        if (user.getFly()) {
             user.setFlight(false);
+            user.setFly(false);
 
             return ReturnType.SUCCESS;
         }
 
-        if (user.canFly()) {
-            user.setFlight(true);
+        if (!user.getFly()) {
+            user.checkFly();
+            user.setFly(true);
 
             return ReturnType.SUCCESS;
         }
