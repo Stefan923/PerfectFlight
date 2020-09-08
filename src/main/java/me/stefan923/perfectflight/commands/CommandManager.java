@@ -103,9 +103,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
                 sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
             }
-            return;
         }
-        sender.sendMessage(formatAll("&8[&3PerfectFlight&8] &cYou have no permission!"));
     }
 
     public List<AbstractCommand> getCommands() {
