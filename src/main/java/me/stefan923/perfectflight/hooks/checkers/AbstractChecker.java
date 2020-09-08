@@ -4,6 +4,6 @@ import org.bukkit.entity.Player;
 
 public abstract class AbstractChecker {
 
-    public abstract boolean canFlyAtLocation(Player player);
+    public abstract CheckResult canFlyAtLocation(Player player);
 
 }

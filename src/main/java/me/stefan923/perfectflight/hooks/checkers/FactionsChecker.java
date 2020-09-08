@@ -19,29 +19,29 @@ public class FactionsChecker extends AbstractChecker implements PlayerUtils {
     }
 
     @Override
-    public boolean canFlyAtLocation(Player player) {
+    public CheckResult canFlyAtLocation(Player player) {
         FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
         Faction faction = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
 
         if (fplayer.isAdminBypassing()) {
             Bukkit.broadcastMessage(player.getName() + " 1");
-            return true;
+            return CheckResult.ALLOWED;
         }
 
         // Checks if player can fly near nearby players.
         if (settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled") && !checkNearbyPlayers(player, fplayer)) {
-            return false;
+            return CheckResult.NEARBY_ENEMIES;
         }
 
         if (faction == fplayer.getFaction()) {
-            return canFlyOwn(player);
+            return canFlyOwn(player) ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
         }
 
         Object relation = faction.getRelationTo(fplayer);
         return (faction.isWilderness() && canFlyWilderness(player)) || (faction.isWarZone() && canFlyWarZone(player))
                 || (faction.isSafeZone() && canFlySafeZone(player)) || (relation == com.massivecraft.factions.struct.Relation.ENEMY && canFlyEnemy(player))
                 || (relation == com.massivecraft.factions.struct.Relation.ALLY && canFlyAlly(player)) || (relation == com.massivecraft.factions.struct.Relation.TRUCE && canFlyTruce(player))
-                || (relation == Relation.NEUTRAL && canFlyNeutral(player));
+                || (relation == Relation.NEUTRAL && canFlyNeutral(player)) ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
     }
 
     private boolean checkNearbyPlayers(Player player, FPlayer fplayer) {
@@ -51,7 +51,7 @@ public class FactionsChecker extends AbstractChecker implements PlayerUtils {
         for (Player nearbyPlayer : getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"))) {
             if (fplayer.getRelationTo(fpInstance.getByPlayer(nearbyPlayer)) == com.massivecraft.factions.struct.Relation.ENEMY) {
                 if (nearbyPlayer.getAllowFlight()) {
-                    instance.getUser(nearbyPlayer).setFlight(false);
+                    instance.getUser(nearbyPlayer).setFlight(false, CheckResult.NEARBY_ENEMIES);
                 }
                 canFly = false;
             }

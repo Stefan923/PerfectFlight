@@ -2,6 +2,7 @@ package me.stefan923.perfectflight.commands.type;
 
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.commands.AbstractCommand;
+import me.stefan923.perfectflight.hooks.checkers.CheckResult;
 import me.stefan923.perfectflight.utils.MessageUtils;
 import me.stefan923.perfectflight.utils.User;
 import org.bukkit.command.CommandSender;
@@ -33,8 +34,9 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
         if (!user.getFly()) {
             user.setFly(true);
 
-            if (user.canFly()) {
-                user.setFlight(true);
+            CheckResult checkResult = user.canFly();
+            if (checkResult.canFly()) {
+                user.setFlight(true, checkResult);
 
                 return ReturnType.SUCCESS;
             }

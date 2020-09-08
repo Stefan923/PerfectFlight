@@ -2,6 +2,7 @@ package me.stefan923.perfectflight.utils;
 
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
+import me.stefan923.perfectflight.hooks.checkers.CheckResult;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -34,6 +35,28 @@ public class User implements MessageUtils {
         return noFallDamageDuration;
     }
 
+    public void setFlight(boolean fly, CheckResult checkResult) {
+        FileConfiguration language = instance.getLanguageManager().getConfig();
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
+
+        player.setAllowFlight(fly);
+        player.setFlying(fly);
+
+        if (fly) {
+            player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
+            return;
+        }
+
+        player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
+
+        if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
+            int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
+            noFallDamageDuration = System.currentTimeMillis() + duration * 1000;
+            player.sendMessage(formatAll(language.getString("Auto Flight Mode.No Fall Damage")
+                    .replace("%duration%", convertTime(duration, language))));
+        }
+    }
+
     public void setFlight(boolean fly) {
         FileConfiguration language = instance.getLanguageManager().getConfig();
         FileConfiguration settings = instance.getSettingsManager().getConfig();
@@ -42,11 +65,11 @@ public class User implements MessageUtils {
         player.setFlying(fly);
 
         if (fly) {
-            player.sendMessage(formatAll(language.getString("Auto Flight Mode.Enabled")));
+            player.sendMessage(formatAll(language.getString("Command.Fly.Enabled")));
             return;
         }
 
-        player.sendMessage(formatAll(language.getString("Auto Flight Mode.Disabled")));
+        player.sendMessage(formatAll("Command.Fly.Disabled"));
 
         if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
             int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
@@ -61,25 +84,27 @@ public class User implements MessageUtils {
             return;
         }
 
-        if (canFly()) {
+        CheckResult checkResult = canFly();
+        if (checkResult.canFly()) {
             if (!player.getAllowFlight()) {
-                setFlight(true);
+                setFlight(true, checkResult);
             }
             return;
         }
 
         if (player.getAllowFlight()) {
-            setFlight(false);
+            setFlight(false, checkResult);
         }
     }
 
-    public boolean canFly() {
+    public CheckResult canFly() {
         for (AbstractChecker checker : instance.getCheckers()) {
-            if (!checker.canFlyAtLocation(player)) {
-                return false;
+            CheckResult checkResult = checker.canFlyAtLocation(player);
+            if (checkResult != CheckResult.ALLOWED) {
+                return checkResult;
             }
         }
-        return true;
+        return CheckResult.ALLOWED;
     }
 
 }
