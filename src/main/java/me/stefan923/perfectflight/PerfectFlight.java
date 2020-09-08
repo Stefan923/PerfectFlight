@@ -73,7 +73,7 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         } catch (ClassNotFoundException e) {
             checkers.add(new SaberFactionsChecker(this));
         } finally {
-            checkers.add(new FactionsChecker());
+            checkers.add(new FactionsChecker(this));
         }
     }
 
