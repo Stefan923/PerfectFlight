@@ -24,7 +24,6 @@ public class SaberFactionsChecker extends AbstractChecker implements PlayerUtils
         Faction faction = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
 
         if (fplayer.isAdminBypassing()) {
-            Bukkit.broadcastMessage(player.getName() + " 1");
             return CheckResult.ALLOWED;
         }
 
