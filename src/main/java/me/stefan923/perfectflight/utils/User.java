@@ -69,7 +69,7 @@ public class User implements MessageUtils {
             return;
         }
 
-        player.sendMessage(formatAll("Command.Fly.Disabled"));
+        player.sendMessage(formatAll(language.getString("Command.Fly.Disabled")));
 
         if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
             int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
