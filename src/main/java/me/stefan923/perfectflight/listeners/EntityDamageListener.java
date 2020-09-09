@@ -20,7 +20,7 @@ public class EntityDamageListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         FileConfiguration settings = instance.getSettingsManager().getConfig();
-        if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
+        if (!settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
             return;
         }
 
