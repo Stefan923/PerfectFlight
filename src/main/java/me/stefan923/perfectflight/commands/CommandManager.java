@@ -1,6 +1,7 @@
 package me.stefan923.perfectflight.commands;
 
 import me.stefan923.perfectflight.PerfectFlight;
+import me.stefan923.perfectflight.commands.type.CommandBypass;
 import me.stefan923.perfectflight.commands.type.CommandFly;
 import me.stefan923.perfectflight.commands.type.CommandPerfectFlight;
 import me.stefan923.perfectflight.commands.type.CommandReload;
@@ -29,12 +30,15 @@ public class CommandManager implements CommandExecutor, MessageUtils {
 
         instance.getCommand("perfectflight").setExecutor(this);
         AbstractCommand commandPerfectFlight = addCommand(new CommandPerfectFlight());
-        addCommand(new CommandReload(commandPerfectFlight));
 
         if (settings.getBoolean("Enabled Commands.Fly")) {
             instance.getCommand("fly").setExecutor(this);
             addCommand(new CommandFly());
         }
+        if (settings.getBoolean("Enabled Commands.Bypass")) {
+            addCommand(new CommandBypass(commandPerfectFlight));
+        }
+        addCommand(new CommandReload(commandPerfectFlight));
 
         for (AbstractCommand abstractCommand : commands) {
             if (abstractCommand.getParent() != null) continue;

@@ -17,6 +17,9 @@ permissions:
   perfectflight.admin:
     description: Access to powerfull commands, like reload, configuration commands.
     default: op
+  perfectflight.bypass:
+    description: Access to use /perfectflight bypass command.
+    default: op
   perfectflight.fly:
     description: Access to use /fly command.
     default: op

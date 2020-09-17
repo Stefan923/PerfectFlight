@@ -23,6 +23,8 @@ public class LanguageManager {
         config = YamlConfiguration.loadConfiguration(cfile);
 
         config.options().header("PerfectFlight by Stefan923\n");
+        config.addDefault("Command.Bypass.Enabled", "&8(&3!&8) &fNow, you are bypassing all fly checkers!");
+        config.addDefault("Command.Bypass.Disabled", "&8(&3!&8) &fYou are &cno longer &fbypassing all fly checkers!");
         config.addDefault("Command.Fly.Can Not Fly", "&8(&3!&8) &cYou &4can't &cenable your flight mode here!");
         config.addDefault("Command.Fly.Enabled", "&8(&3!&8) &fYour flight mode has been &aenabled&f!");
         config.addDefault("Command.Fly.Disabled", "&8(&3!&8) &fYour flight mode has been &cdisabled&f!");

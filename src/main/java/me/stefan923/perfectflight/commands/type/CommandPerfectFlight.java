@@ -37,6 +37,9 @@ public class CommandPerfectFlight extends AbstractCommand implements MessageUtil
             if (sender.hasPermission("perfectflight.admin")) {
                 list.addAll(Stream.of("reload").filter(string -> string.startsWith(args[0].toLowerCase())).collect(Collectors.toList()));
             }
+            if (sender.hasPermission("perfectflight.bypass")) {
+                list.addAll(Stream.of("bypass").filter(string -> string.startsWith(args[0].toLowerCase())).collect(Collectors.toList()));
+            }
             return list.isEmpty() ? null : list;
         }
 
