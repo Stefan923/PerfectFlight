@@ -46,7 +46,7 @@ public class SaberFactionsChecker extends AbstractChecker implements PlayerUtils
         boolean canFly = true;
 
         FPlayers fpInstance = FPlayers.getInstance();
-        for (Player nearbyPlayer : getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"))) {
+        for (Player nearbyPlayer : getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"), instance)) {
             if (fplayer.getRelationTo(fpInstance.getByPlayer(nearbyPlayer)) == Relation.ENEMY) {
                 if (nearbyPlayer.getAllowFlight()) {
                     instance.getUser(nearbyPlayer).setFlight(false, CheckResult.NEARBY_ENEMIES);

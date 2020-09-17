@@ -12,12 +12,14 @@ public class User implements MessageUtils {
     private final Player player;
 
     private boolean enableFly;
+    private boolean isBypassing;
     private long noFallDamageDuration;
 
     public User(PerfectFlight instance, Player player) {
         this.instance = instance;
         this.player = player;
         this.enableFly = true;
+        this.isBypassing = false;
         this.noFallDamageDuration = 0;
 
         instance.getUsers().put(player, this);
@@ -29,6 +31,14 @@ public class User implements MessageUtils {
 
     public boolean getFly() {
         return enableFly;
+    }
+
+    public boolean isBypassing() {
+        return isBypassing;
+    }
+
+    public void setBypassing(boolean bypassing) {
+        isBypassing = bypassing;
     }
 
     public long getNoFallDamageDuration() {
@@ -104,6 +114,10 @@ public class User implements MessageUtils {
     }
 
     public CheckResult canFly() {
+        if (isBypassing) {
+            return CheckResult.ALLOWED;
+        }
+
         for (AbstractChecker checker : instance.getCheckers()) {
             CheckResult checkResult = checker.canFlyAtLocation(player);
             if (checkResult != CheckResult.ALLOWED) {
@@ -112,5 +126,4 @@ public class User implements MessageUtils {
         }
         return CheckResult.ALLOWED;
     }
-
 }
