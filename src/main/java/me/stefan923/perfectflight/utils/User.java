@@ -50,7 +50,7 @@ public class User implements MessageUtils {
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         if (fly) {
-            if (settings.getBoolean("Hooks.Factions.Auto-Enable")) {
+            if (!settings.getBoolean("Hooks.Factions.Auto-Enable")) {
                 return;
             }
 
