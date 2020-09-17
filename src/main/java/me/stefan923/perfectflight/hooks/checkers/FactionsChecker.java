@@ -4,7 +4,6 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Relation;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.utils.PlayerUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -24,7 +23,6 @@ public class FactionsChecker extends AbstractChecker implements PlayerUtils {
         Faction faction = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
 
         if (fplayer.isAdminBypassing()) {
-            Bukkit.broadcastMessage(player.getName() + " 1");
             return CheckResult.ALLOWED;
         }
 
