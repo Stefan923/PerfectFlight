@@ -1,7 +1,6 @@
 package me.stefan923.perfectflight.listeners;
 
 import me.stefan923.perfectflight.PerfectFlight;
-import me.stefan923.perfectflight.utils.User;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
