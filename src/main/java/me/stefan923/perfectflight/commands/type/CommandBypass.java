@@ -24,13 +24,13 @@ public class CommandBypass extends AbstractCommand implements MessageUtils {
 
         if (user.isBypassing()) {
             user.setBypassing(false);
-            sender.sendMessage(formatAll(language.getString("Command.Bypass.Enabled")));
+            sender.sendMessage(formatAll(language.getString("Command.Bypass.Disabled")));
 
             return ReturnType.SUCCESS;
         }
 
         user.setBypassing(true);
-        sender.sendMessage(formatAll(language.getString("Command.Bypass.Disabled")));
+        sender.sendMessage(formatAll(language.getString("Command.Bypass.Enabled")));
 
         return ReturnType.SUCCESS;
     }

@@ -22,6 +22,7 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
         Player player = (Player) sender;
         User user = instance.getUser(player);
 
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
         FileConfiguration language = instance.getLanguageManager().getConfig();
 
         if (user.getFly()) {
@@ -32,11 +33,13 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
         }
 
         if (!user.getFly()) {
-            user.setFly(true);
-
             CheckResult checkResult = user.canFly();
+            if (settings.getBoolean("Hooks.Factions.Auto-Enable") || checkResult.canFly()) {
+                user.setFly(true);
+            }
+
             if (checkResult.canFly()) {
-                user.setFlight(true, checkResult);
+                user.setFlight(true);
 
                 return ReturnType.SUCCESS;
             }

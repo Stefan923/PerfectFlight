@@ -3,6 +3,7 @@ package me.stefan923.perfectflight.utils;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
 import me.stefan923.perfectflight.hooks.checkers.CheckResult;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -60,6 +61,9 @@ public class User implements MessageUtils {
             return;
         }
 
+        if (!settings.getBoolean("Hooks.Factions.Auto-Enable")) {
+            enableFly = false;
+        }
 
         player.setAllowFlight(false);
         player.setFlying(false);
