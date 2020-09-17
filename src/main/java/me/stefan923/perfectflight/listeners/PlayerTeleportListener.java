@@ -16,10 +16,8 @@ public class PlayerTeleportListener implements Listener {
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
-        if (instance.getSettingsManager().getConfig().getBoolean("Hooks.Factions.Auto-Enable")) {
-            User user = instance.getUser(event.getPlayer());
-            user.checkFly();
-        }
+        User user = instance.getUser(event.getPlayer());
+        user.checkFly();
     }
 
 }

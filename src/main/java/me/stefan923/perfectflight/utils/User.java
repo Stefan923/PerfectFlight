@@ -39,14 +39,20 @@ public class User implements MessageUtils {
         FileConfiguration language = instance.getLanguageManager().getConfig();
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
-        player.setAllowFlight(fly);
-        player.setFlying(fly);
-
         if (fly) {
+            if (settings.getBoolean("Hooks.Factions.Auto-Enable")) {
+                return;
+            }
+
+            player.setAllowFlight(true);
+            player.setFlying(true);
             player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
             return;
         }
 
+
+        player.setAllowFlight(false);
+        player.setFlying(false);
         player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
 
         if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {

@@ -2,6 +2,7 @@ package me.stefan923.perfectflight;
 
 import me.stefan923.perfectflight.commands.CommandManager;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
+import me.stefan923.perfectflight.hooks.checkers.CombatLogXChecker;
 import me.stefan923.perfectflight.hooks.checkers.FactionsChecker;
 import me.stefan923.perfectflight.hooks.checkers.SaberFactionsChecker;
 import me.stefan923.perfectflight.language.LanguageManager;
@@ -9,6 +10,7 @@ import me.stefan923.perfectflight.listeners.*;
 import me.stefan923.perfectflight.settings.SettingsManager;
 import me.stefan923.perfectflight.utils.MessageUtils;
 import me.stefan923.perfectflight.utils.User;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -66,12 +68,20 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     }
 
     private void loadCheckers() {
-        try {
-            Class.forName("com.massivecraft.factions.perms.Relation");
-        } catch (ClassNotFoundException e) {
-            checkers.add(new SaberFactionsChecker(this));
-        } finally {
-            checkers.add(new FactionsChecker(this));
+        FileConfiguration settings = settingsManager.getConfig();
+
+        if (getServer().getPluginManager().isPluginEnabled("Factions") && (settings.getBoolean("Hooks.Factions.Auto-Enable") || settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled"))) {
+            try {
+                Class.forName("com.massivecraft.factions.perms.Relation");
+            } catch (ClassNotFoundException e) {
+                checkers.add(new SaberFactionsChecker(this));
+            } finally {
+                checkers.add(new FactionsChecker(this));
+            }
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("CombatLogX") && settings.getBoolean("Hooks.CombatLogX.Disable Fly On Combat Tag")) {
+            checkers.add(new CombatLogXChecker());
         }
     }
 

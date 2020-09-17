@@ -27,6 +27,7 @@ public class SettingsManager {
         config.addDefault("Fly Settings.Disable Fall Damage.Enabled", true);
         config.addDefault("Fly Settings.Disable Fall Damage.Duration In Seconds", 10);
         config.addDefault("Enabled Commands.Fly", true);
+        config.addDefault("Hooks.CombatLogX.Disable Fly On Combat Tag", false);
         config.addDefault("Hooks.Factions.Auto-Enable", false);
         config.addDefault("Hooks.Factions.Auto-Disable Near Enemies.Enabled", false);
         config.addDefault("Hooks.Factions.Auto-Disable Near Enemies.Check Radius", 32);

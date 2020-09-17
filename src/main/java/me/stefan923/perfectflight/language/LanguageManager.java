@@ -28,6 +28,7 @@ public class LanguageManager {
         config.addDefault("Command.Fly.Disabled", "&8(&3!&8) &fYour flight mode has been &cdisabled&f!");
         config.addDefault("Auto Flight Mode.Enabled", "&8(&3!&8) &fYour flight mode has been &aenabled&f!");
         config.addDefault("Auto Flight Mode.Disabled.Can Not Fly Here", "&8(&3!&8) &fYour flight mode has been &cdisabled&f because you can't fly over this territory!");
+        config.addDefault("Auto Flight Mode.Disabled.In Combat", "&8(&3!&8) &fYour flight mode has been &cdisabled&f because you are in combat!");
         config.addDefault("Auto Flight Mode.Disabled.Nearby Enemies", "&8(&3!&8) &fYour flight mode has been &cdisabled&f because there are nearby enemies!");
         config.addDefault("Auto Flight Mode.No Fall Damage", "&8(&3!&8) &fYou won't take any &bfall damage &ffor &3%duration%&f!");
         config.addDefault("General.Must Be Player", "&8(&3!&8) &cYou must be a player to do this!");
