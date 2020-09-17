@@ -4,7 +4,8 @@ public enum CheckResult {
 
     ALLOWED("Auto Flight Mode.Enabled", true),
     PRIVATE_TERRITORY("Auto Flight Mode.Disabled.Can Not Fly Here", false),
-    NEARBY_ENEMIES("Auto Flight Mode.Disabled.Nearby Enemies", false);
+    NEARBY_ENEMIES("Auto Flight Mode.Disabled.Nearby Enemies", false),
+    IN_COMBAT("Auto Flight Mode.Disabled.In Combat", false);
 
     private final String langOption;
     private final boolean canFly;
