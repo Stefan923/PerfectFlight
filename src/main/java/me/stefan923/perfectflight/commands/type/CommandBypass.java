@@ -2,7 +2,6 @@ package me.stefan923.perfectflight.commands.type;
 
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.commands.AbstractCommand;
-import me.stefan923.perfectflight.language.LanguageManager;
 import me.stefan923.perfectflight.utils.MessageUtils;
 import me.stefan923.perfectflight.utils.User;
 import org.bukkit.command.CommandSender;
