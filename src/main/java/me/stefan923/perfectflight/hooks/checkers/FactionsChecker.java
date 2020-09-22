@@ -2,6 +2,8 @@ package me.stefan923.perfectflight.hooks.checkers;
 
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.zcore.fperms.Access;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.utils.PlayerUtils;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,10 +38,11 @@ public class FactionsChecker extends AbstractChecker implements PlayerUtils {
         }
 
         Object relation = faction.getRelationTo(fplayer);
-        return (faction.isWilderness() && canFlyWilderness(player)) || (faction.isWarZone() && canFlyWarZone(player))
-                || (faction.isSafeZone() && canFlySafeZone(player)) || (relation == com.massivecraft.factions.struct.Relation.ENEMY && canFlyEnemy(player))
-                || (relation == com.massivecraft.factions.struct.Relation.ALLY && canFlyAlly(player)) || (relation == com.massivecraft.factions.struct.Relation.TRUCE && canFlyTruce(player))
-                || (relation == Relation.NEUTRAL && canFlyNeutral(player)) ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
+        return ((faction.isWilderness() && canFlyWilderness(player)) || (faction.isWarZone() && canFlyWarZone(player))
+                || (faction.isSafeZone() && canFlySafeZone(player)) || (relation == Relation.ENEMY && canFlyEnemy(player))
+                || (relation == Relation.ALLY && canFlyAlly(player)) || (relation == Relation.TRUCE && canFlyTruce(player))
+                || (relation == Relation.NEUTRAL && canFlyNeutral(player)) || faction.getAccess(fplayer, PermissableAction.FLY) == Access.ALLOW)
+                ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
     }
 
     private boolean checkNearbyPlayers(Player player, FPlayer fplayer) {
