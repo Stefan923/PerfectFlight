@@ -1,5 +1,5 @@
 name: PerfectFlight
-version: 0.4.0
+version: 0.4.1
 main: me.stefan923.perfectflight.PerfectFlight
 description: Adds a fully customizable flight system to Minecraft.
 softdepend: [Factions, CombatLogX]
