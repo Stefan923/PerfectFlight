@@ -33,15 +33,15 @@ public class SaberFactionsChecker extends AbstractChecker implements PlayerUtils
             return CheckResult.NEARBY_ENEMIES;
         }
 
-        if (faction == fplayer.getFaction()) {
-            return canFlyOwn(player) ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
+        if (faction.getAccess(fplayer, PermissableAction.FLY) == Access.ALLOW) {
+            return CheckResult.ALLOWED;
         }
 
         Object relation = faction.getRelationTo(fplayer);
         return ((faction.isWilderness() && canFlyWilderness(player)) || (faction.isWarZone() && canFlyWarZone(player))
                 || (faction.isSafeZone() && canFlySafeZone(player)) || (relation == Relation.ENEMY && canFlyEnemy(player))
                 || (relation == Relation.ALLY && canFlyAlly(player)) || (relation == Relation.TRUCE && canFlyTruce(player))
-                || (relation == Relation.NEUTRAL && canFlyNeutral(player)) || faction.getAccess(fplayer, PermissableAction.FLY) == Access.ALLOW)
+                || (relation == Relation.NEUTRAL && canFlyNeutral(player)) || (faction == fplayer.getFaction() && canFlyOwn(player)))
                 ? CheckResult.ALLOWED : CheckResult.PRIVATE_TERRITORY;
     }
 
