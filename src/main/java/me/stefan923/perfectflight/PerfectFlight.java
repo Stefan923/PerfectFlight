@@ -46,9 +46,8 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         sendLogger("&b   Version: &3v" + getDescription().getVersion());
         sendLogger("&b   Enabled listeners: &3" + enableListeners());
         sendLogger("&b   Enabled commands: &3" + enableCommands());
-        sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
-
         loadCheckers();
+        sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
     }
 
     private Integer enableListeners() {
@@ -70,18 +69,20 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
     private void loadCheckers() {
         FileConfiguration settings = settingsManager.getConfig();
 
-        if (getServer().getPluginManager().isPluginEnabled("Factions") && (settings.getBoolean("Hooks.Factions.Auto-Enable") || settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled"))) {
+        if (getServer().getPluginManager().getPlugin("Factions") != null && (settings.getBoolean("Hooks.Factions.Auto-Enable") || settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled"))) {
             try {
                 Class.forName("com.massivecraft.factions.perms.Relation");
+                checkers.add(new FactionsChecker(this));
+                sendLogger("&b   Enabled checker: &3Factions");
             } catch (ClassNotFoundException e) {
                 checkers.add(new SaberFactionsChecker(this));
-            } finally {
-                checkers.add(new FactionsChecker(this));
+                sendLogger("&b   Enabled checker: &3SaberFactions");
             }
         }
 
-        if (getServer().getPluginManager().isPluginEnabled("CombatLogX") && settings.getBoolean("Hooks.CombatLogX.Disable Fly On Combat Tag")) {
+        if (getServer().getPluginManager().getPlugin("CombatLogX") != null && settings.getBoolean("Hooks.CombatLogX.Disable Fly On Combat Tag")) {
             checkers.add(new CombatLogXChecker());
+            sendLogger("&b   Enabled checker: &3CombatLogX");
         }
     }
 
