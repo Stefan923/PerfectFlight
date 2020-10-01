@@ -1,7 +1,8 @@
 # PerfectFlight
 
 PerfectFlight is a Minecraft plugin for Bukkit servers that implements the flight mode for players, with support for different plugins, like Factions, FactionsUUID, SaberFactions etc.
-This resource is free, open-source and under development. Any suggestion is welcome.
+
+**Copyright © Stefan923 \| 2020** \| The use of this software is restricted. To use this product you must contact the copyright holder (me, Stefan923) and wait for his approval. Modification and distribution of the product by other persons is not permitted.
 
 ## Getting Started
 
