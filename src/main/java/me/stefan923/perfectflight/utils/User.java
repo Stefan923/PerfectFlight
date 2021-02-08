@@ -3,6 +3,7 @@ package me.stefan923.perfectflight.utils;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
 import me.stefan923.perfectflight.hooks.checkers.CheckResult;
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -34,7 +35,7 @@ public class User {
     }
 
     public boolean isBypassing() {
-        return isBypassing;
+        return isBypassing || player.getGameMode() == GameMode.SPECTATOR;
     }
 
     public void setBypassing(boolean bypassing) {
