@@ -5,9 +5,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public interface MessageUtils {
+public final class MessageUtils {
 
-    default String formatAll(String string) {
+    private MessageUtils() {
+
+    }
+
+    public static String formatAll(String string) {
         return string.replace("&a", "§a")
                 .replace("&b", "§b")
                 .replace("&c", "§c")
@@ -32,11 +36,11 @@ public interface MessageUtils {
                 .replace("&r", "§r");
     }
 
-    default void sendLogger(final String string) {
+    public static void sendLogger(final String string) {
         Bukkit.getConsoleSender().sendMessage(formatAll(string));
     }
 
-    default void sendCenteredMessage(CommandSender player, String message) {
+    public static void sendCenteredMessage(CommandSender player, String message) {
         if (message == null || message.equals("")) {
             player.sendMessage("");
             return;
@@ -72,7 +76,7 @@ public interface MessageUtils {
         player.sendMessage(sb.toString() + message);
     }
 
-    default String convertTime(final int time, final FileConfiguration language) {
+    public static String convertTime(final int time, final FileConfiguration language) {
         if (time == 1) {
             return time + " " + formatAll(language.getString("General.Word.Second"));
         }

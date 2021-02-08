@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandManager implements CommandExecutor, MessageUtils {
+public class CommandManager implements CommandExecutor {
 
     private static final List<AbstractCommand> commands = new ArrayList<>();
     private final PerfectFlight instance;
@@ -70,7 +70,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 }
             }
         }
-        commandSender.sendMessage(formatAll("&8[&3PerfectFlight&8] &cThe command you entered does not exist or is spelt incorrectly."));
+        commandSender.sendMessage(MessageUtils.formatAll("&8[&3PerfectFlight&8] &cThe command you entered does not exist or is spelt incorrectly."));
         return true;
     }
 
@@ -83,18 +83,18 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 try {
                     returnType = command.runCommand(instance, sender, strings);
                 } catch (MissingPermissionException e) {
-                    sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", e.getMessage())));
+                    sender.sendMessage(MessageUtils.formatAll(language.getString("General.No Permission").replace("%permission%", e.getMessage())));
                 }
                 if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
-                    sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
+                    sender.sendMessage(MessageUtils.formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
                 }
                 return;
             }
-            sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", permissionNode)));
+            sender.sendMessage(MessageUtils.formatAll(language.getString("General.No Permission").replace("%permission%", permissionNode)));
             return;
         }
         if (command.isNoConsole()) {
-            sender.sendMessage(formatAll(language.getString("General.Must Be Player")));
+            sender.sendMessage(MessageUtils.formatAll(language.getString("General.Must Be Player")));
             return;
         }
         if (command.getPermissionNode() == null || sender.hasPermission(command.getPermissionNode())) {
@@ -105,7 +105,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 e.printStackTrace();
             }
             if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
-                sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
+                sender.sendMessage(MessageUtils.formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
             }
         }
     }

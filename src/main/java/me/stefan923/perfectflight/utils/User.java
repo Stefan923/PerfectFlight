@@ -3,11 +3,10 @@ package me.stefan923.perfectflight.utils;
 import me.stefan923.perfectflight.PerfectFlight;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
 import me.stefan923.perfectflight.hooks.checkers.CheckResult;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-public class User implements MessageUtils {
+public class User {
 
     private final PerfectFlight instance;
     private final Player player;
@@ -57,7 +56,7 @@ public class User implements MessageUtils {
 
             player.setAllowFlight(true);
             player.setFlying(true);
-            player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
+            player.sendMessage(MessageUtils.formatAll(language.getString(checkResult.getLangOption())));
             return;
         }
 
@@ -67,13 +66,13 @@ public class User implements MessageUtils {
 
         player.setAllowFlight(false);
         player.setFlying(false);
-        player.sendMessage(formatAll(language.getString(checkResult.getLangOption())));
+        player.sendMessage(MessageUtils.formatAll(language.getString(checkResult.getLangOption())));
 
         if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
             int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
             noFallDamageDuration = System.currentTimeMillis() + duration * 1000;
-            player.sendMessage(formatAll(language.getString("Auto Flight Mode.No Fall Damage")
-                    .replace("%duration%", convertTime(duration, language))));
+            player.sendMessage(MessageUtils.formatAll(language.getString("Auto Flight Mode.No Fall Damage")
+                    .replace("%duration%", MessageUtils.convertTime(duration, language))));
         }
     }
 
@@ -85,17 +84,17 @@ public class User implements MessageUtils {
         player.setFlying(fly);
 
         if (fly) {
-            player.sendMessage(formatAll(language.getString("Command.Fly.Enabled")));
+            player.sendMessage(MessageUtils.formatAll(language.getString("Command.Fly.Enabled")));
             return;
         }
 
-        player.sendMessage(formatAll(language.getString("Command.Fly.Disabled")));
+        player.sendMessage(MessageUtils.formatAll(language.getString("Command.Fly.Disabled")));
 
         if (settings.getBoolean("Fly Settings.Disable Fall Damage.Enabled")) {
             int duration = settings.getInt("Fly Settings.Disable Fall Damage.Duration In Seconds");
             noFallDamageDuration = System.currentTimeMillis() + duration * 1000;
-            player.sendMessage(formatAll(language.getString("Auto Flight Mode.No Fall Damage")
-                    .replace("%duration%", convertTime(duration, language))));
+            player.sendMessage(MessageUtils.formatAll(language.getString("Auto Flight Mode.No Fall Damage")
+                    .replace("%duration%", MessageUtils.convertTime(duration, language))));
         }
     }
 

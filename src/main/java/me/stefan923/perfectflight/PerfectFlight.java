@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PerfectFlight extends JavaPlugin implements MessageUtils {
+public class PerfectFlight extends JavaPlugin {
     private static PerfectFlight instance;
 
     private SettingsManager settingsManager;
@@ -41,13 +41,13 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
         checkers = new ArrayList<>();
         users = new HashMap<>();
 
-        sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
-        sendLogger("&b   Plugin has been initialized.");
-        sendLogger("&b   Version: &3v" + getDescription().getVersion());
-        sendLogger("&b   Enabled listeners: &3" + enableListeners());
-        sendLogger("&b   Enabled commands: &3" + enableCommands());
+        MessageUtils.sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
+        MessageUtils.sendLogger("&b   Plugin has been initialized.");
+        MessageUtils.sendLogger("&b   Version: &3v" + getDescription().getVersion());
+        MessageUtils.sendLogger("&b   Enabled listeners: &3" + enableListeners());
+        MessageUtils.sendLogger("&b   Enabled commands: &3" + enableCommands());
         loadCheckers();
-        sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
+        MessageUtils.sendLogger("&8&l> &7&m------- &8&l( &3&lPerfectFlight &b&lby Stefan923 &8&l) &7&m------- &8&l<");
     }
 
     private Integer enableListeners() {
@@ -73,16 +73,16 @@ public class PerfectFlight extends JavaPlugin implements MessageUtils {
             try {
                 Class.forName("com.massivecraft.factions.perms.Relation");
                 checkers.add(new FactionsChecker(this));
-                sendLogger("&b   Enabled checker: &3Factions");
+                MessageUtils.sendLogger("&b   Enabled checker: &3Factions");
             } catch (ClassNotFoundException e) {
                 checkers.add(new SaberFactionsChecker(this));
-                sendLogger("&b   Enabled checker: &3SaberFactions");
+                MessageUtils.sendLogger("&b   Enabled checker: &3SaberFactions");
             }
         }
 
         if (getServer().getPluginManager().getPlugin("CombatLogX") != null && settings.getBoolean("Hooks.CombatLogX.Disable Fly On Combat Tag")) {
             checkers.add(new CombatLogXChecker());
-            sendLogger("&b   Enabled checker: &3CombatLogX");
+            MessageUtils.sendLogger("&b   Enabled checker: &3CombatLogX");
         }
     }
 

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CommandFly extends AbstractCommand implements MessageUtils {
+public class CommandFly extends AbstractCommand {
 
     public CommandFly() {
         super(null, true, "fly");
@@ -44,7 +44,7 @@ public class CommandFly extends AbstractCommand implements MessageUtils {
                 return ReturnType.SUCCESS;
             }
 
-            player.sendMessage(formatAll(language.getString("Command.Fly.Can Not Fly")));
+            player.sendMessage(MessageUtils.formatAll(language.getString("Command.Fly.Can Not Fly")));
         }
 
         return ReturnType.SUCCESS;

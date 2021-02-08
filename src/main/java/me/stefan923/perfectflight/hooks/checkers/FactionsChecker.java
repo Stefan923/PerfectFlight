@@ -9,7 +9,7 @@ import me.stefan923.perfectflight.utils.PlayerUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-public class FactionsChecker extends AbstractChecker implements PlayerUtils {
+public class FactionsChecker extends AbstractChecker {
 
     private final PerfectFlight instance;
     private final FileConfiguration settings;
@@ -49,7 +49,7 @@ public class FactionsChecker extends AbstractChecker implements PlayerUtils {
         boolean canFly = true;
 
         FPlayers fpInstance = FPlayers.getInstance();
-        for (Player nearbyPlayer : getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"), instance)) {
+        for (Player nearbyPlayer : PlayerUtils.getNearbyPlayers(player, settings.getInt("Hooks.Factions.Auto-Disable Near Enemies.Check Radius"), instance)) {
             if (fplayer.getRelationTo(fpInstance.getByPlayer(nearbyPlayer)) == com.massivecraft.factions.struct.Relation.ENEMY) {
                 if (nearbyPlayer.getAllowFlight()) {
                     instance.getUser(nearbyPlayer).setFlight(false, CheckResult.NEARBY_ENEMIES);

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CommandReload extends AbstractCommand implements MessageUtils {
+public class CommandReload extends AbstractCommand {
 
     public CommandReload(AbstractCommand abstractCommand) {
         super(abstractCommand, false, "reload");
@@ -23,19 +23,19 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
         if (args[1].equalsIgnoreCase("all")) {
             instance.reloadSettingManager();
             instance.reloadLanguageManager();
-            sender.sendMessage(formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &ball &fmodules!"));
+            sender.sendMessage(MessageUtils.formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &ball &fmodules!"));
             return ReturnType.SUCCESS;
         }
 
         if (args[1].equalsIgnoreCase("settings")) {
             instance.reloadSettingManager();
-            sender.sendMessage(formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &bsettings &fmodule!"));
+            sender.sendMessage(MessageUtils.formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &bsettings &fmodule!"));
             return ReturnType.SUCCESS;
         }
 
         if (args[1].equalsIgnoreCase("languages")) {
             instance.reloadLanguageManager();
-            sender.sendMessage(formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &blanguages &fmodule!"));
+            sender.sendMessage(MessageUtils.formatAll("&8[&3PerfectFlight&8] &fYou have successfully reloaded &blanguages &fmodule!"));
             return ReturnType.SUCCESS;
         }
 

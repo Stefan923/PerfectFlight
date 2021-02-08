@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface PlayerUtils {
+public final class PlayerUtils {
 
-    default List<Player> getNearbyPlayers(Player player, int distance, PerfectFlight instance) {
+    public static List<Player> getNearbyPlayers(Player player, int distance, PerfectFlight instance) {
         List<Player> list = new ArrayList<>();
 
         for (Entity entity : player.getNearbyEntities(distance, distance, distance)) {

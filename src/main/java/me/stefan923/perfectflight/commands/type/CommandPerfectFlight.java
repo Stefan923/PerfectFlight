@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CommandPerfectFlight extends AbstractCommand implements MessageUtils {
+public class CommandPerfectFlight extends AbstractCommand {
 
     public CommandPerfectFlight() {
         super(null, false, "perfectflight");
@@ -18,14 +18,14 @@ public class CommandPerfectFlight extends AbstractCommand implements MessageUtil
 
     @Override
     protected ReturnType runCommand(PerfectFlight instance, CommandSender sender, String... args) {
-        sender.sendMessage(formatAll(" "));
-        sendCenteredMessage(sender, formatAll("&8&m--+----------------------------------------+--&r"));
-        sendCenteredMessage(sender, formatAll("&3&lPerfectFlight &f&lv" + instance.getDescription().getVersion()));
-        sendCenteredMessage(sender, formatAll("&8&l» &fPlugin author: &bStefan923"));
-        sendCenteredMessage(sender, formatAll(" "));
-        sendCenteredMessage(sender, formatAll("&8&l» &fAdds a fully customizable flight system to Minecraft."));
-        sendCenteredMessage(sender, formatAll("&8&m--+----------------------------------------+--&r"));
-        sender.sendMessage(formatAll(" "));
+        sender.sendMessage(MessageUtils.formatAll(" "));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll("&8&m--+----------------------------------------+--&r"));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll("&3&lPerfectFlight &f&lv" + instance.getDescription().getVersion()));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll("&8&l» &fPlugin author: &bStefan923"));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll(" "));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll("&8&l» &fAdds a fully customizable flight system to Minecraft."));
+        MessageUtils.sendCenteredMessage(sender, MessageUtils.formatAll("&8&m--+----------------------------------------+--&r"));
+        sender.sendMessage(MessageUtils.formatAll(" "));
 
         return ReturnType.SUCCESS;
     }

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CommandBypass extends AbstractCommand implements MessageUtils {
+public class CommandBypass extends AbstractCommand {
 
     public CommandBypass(AbstractCommand abstractCommand) {
         super(abstractCommand, true, "bypass");
@@ -23,13 +23,13 @@ public class CommandBypass extends AbstractCommand implements MessageUtils {
 
         if (user.isBypassing()) {
             user.setBypassing(false);
-            sender.sendMessage(formatAll(language.getString("Command.Bypass.Disabled")));
+            sender.sendMessage(MessageUtils.formatAll(language.getString("Command.Bypass.Disabled")));
 
             return ReturnType.SUCCESS;
         }
 
         user.setBypassing(true);
-        sender.sendMessage(formatAll(language.getString("Command.Bypass.Enabled")));
+        sender.sendMessage(MessageUtils.formatAll(language.getString("Command.Bypass.Enabled")));
 
         return ReturnType.SUCCESS;
     }
