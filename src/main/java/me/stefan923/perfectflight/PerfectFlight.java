@@ -3,8 +3,8 @@ package me.stefan923.perfectflight;
 import me.stefan923.perfectflight.commands.CommandManager;
 import me.stefan923.perfectflight.hooks.checkers.AbstractChecker;
 import me.stefan923.perfectflight.hooks.checkers.CombatLogXChecker;
-import me.stefan923.perfectflight.hooks.checkers.FactionsChecker;
-import me.stefan923.perfectflight.hooks.checkers.SaberFactionsChecker;
+import me.stefan923.perfectflight.hooks.checkers.factions.FactionsUUIDChecker;
+import me.stefan923.perfectflight.hooks.checkers.factions.SaberFactionsChecker;
 import me.stefan923.perfectflight.language.LanguageManager;
 import me.stefan923.perfectflight.listeners.*;
 import me.stefan923.perfectflight.settings.SettingsManager;
@@ -72,7 +72,7 @@ public class PerfectFlight extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("Factions") != null && (settings.getBoolean("Hooks.Factions.Auto-Enable") || settings.getBoolean("Hooks.Factions.Auto-Disable Near Enemies.Enabled"))) {
             try {
                 Class.forName("com.massivecraft.factions.perms.Relation");
-                checkers.add(new FactionsChecker(this));
+                checkers.add(new FactionsUUIDChecker(this));
                 MessageUtils.sendLogger("&b   Enabled checker: &3Factions");
             } catch (ClassNotFoundException e) {
                 checkers.add(new SaberFactionsChecker(this));
